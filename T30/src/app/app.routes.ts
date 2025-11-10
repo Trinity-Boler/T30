@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { Dashboard } from './dashboard/dashboard';
 import { Login } from './login/login';
+import { Summary } from './summary/summary';
+import { Report } from './report/report';
 
 export const routes: Routes = [
 
@@ -12,6 +14,16 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: Dashboard
+  },
+
+   {
+    path: 'summary',
+    component: Summary
+  },
+
+   {
+    path: 'report',
+    component:Report
   },
 
 ];
