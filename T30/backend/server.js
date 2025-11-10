@@ -31,23 +31,23 @@ const usersSchema = new mongoose.Schema({
 const Users = mongoose.model('users', usersSchema);
 
 const summarySchema = new mongoose.Schema({
-  source: String,
-  percentage: Number,
-});
+  label: { type: String, required: true },
+  value: { type: Number, required: true }
+}, { collection: 'summary' });
 const Summary = mongoose.model('summary', summarySchema);
 
 const reportSchema = new mongoose.Schema({
-  platform: String,
-  adoptionRate: Number,
+  lable: String,
+  value: Number,
 });
-const Report = mongoose.model('report', reportSchema);
+const Report = mongoose.model('reports', reportSchema);
 
 // ---------------------------------------------
 // 3. Routes
 // ---------------------------------------------
 
 // Fetch all users
-app.get('/api/userbase', async (req, res) => {
+app.get('/api/users', async (req, res) => {
   try {
     const allUsers = await Users.find();
     res.json(allUsers);
@@ -61,14 +61,15 @@ app.get('/api/userbase', async (req, res) => {
 app.get('/api/summary', async (req, res) => {
   try {
     const data = await Summary.find();
-    const labels = data.map(item => item.source);
-    const values = data.map(item => item.percentage);
-    res.json({ labels, values });
+    // send as array of objects
+    res.json(data.map(d => ({ label: d.label, value: d.value })));
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
+
+
 
 // Report data for chart
 app.get('/api/report', async (req, res) => {
@@ -83,37 +84,7 @@ app.get('/api/report', async (req, res) => {
   }
 });
 
-// ---------------------------------------------
-// 4. One-time seed function for demo data
-// ---------------------------------------------
-async function seedData() {
-  const summaryData = [
-    { source: 'Wind', percentage: 40 },
-    { source: 'Solar', percentage: 35 },
-    { source: 'Hydro', percentage: 15 },
-    { source: 'Geothermal', percentage: 10 },
-  ];
 
-  const reportData = [
-    { platform: 'PlayStation', adoptionRate: 50 },
-    { platform: 'Xbox', adoptionRate: 20 },
-    { platform: 'PC', adoptionRate: 25 },
-    { platform: 'Switch', adoptionRate: 5 },
-  ];
-
-  try {
-    await Summary.deleteMany({});
-    await Report.deleteMany({});
-    await Summary.insertMany(summaryData);
-    await Report.insertMany(reportData);
-    console.log('✅ Sample summary and report data inserted');
-  } catch (err) {
-    console.error('❌ Error seeding data:', err);
-  }
-}
-
-// Uncomment this line ONLY the first time you run the app
-// seedData();
 
 // ---------------------------------------------
 // 5. Start Server
