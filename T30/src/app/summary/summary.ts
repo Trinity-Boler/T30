@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
@@ -12,27 +12,38 @@ Chart.register(...registerables);
   templateUrl: './summary.html',
   styleUrls: ['./summary.scss']
 })
-export class Summary implements OnInit {
+export class Summary implements OnInit, AfterViewInit {
 
   isLoggedIn = false;
+  viewReady = false; // ensures DOM is loaded
 
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
 
-    // No token 
+    // No token
     if (!token) {
       this.isLoggedIn = false;
       return;
     }
 
-    // Token exists -> show page + load chart
+    // Token exists
     this.isLoggedIn = true;
-    this.loadSummaryChart();
+  }
+
+  ngAfterViewInit(): void {
+    this.viewReady = true;
+
+    // If logged in, load chart AFTER view initializes
+    if (this.isLoggedIn) {
+      this.loadSummaryChart();
+    }
   }
 
   loadSummaryChart() {
+    if (!this.viewReady) return; 
+
     const token = localStorage.getItem('token');
     if (!token) return;
 
@@ -46,17 +57,30 @@ export class Summary implements OnInit {
           const labels = data.map(d => d.label);
           const values = data.map(d => d.value);
 
-          const ctx = document.getElementById('summaryChart') as HTMLCanvasElement;
-          const existing = Chart.getChart(ctx);
+          const canvas = document.getElementById('summaryChart') as HTMLCanvasElement;
+          if (!canvas) {
+            console.error("Canvas not found.");
+            return;
+          }
+
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            console.error("Failed to get canvas context.");
+            return;
+          }
+
+          // Remove old chart if it exists
+          const existing = Chart.getChart(canvas);
           if (existing) existing.destroy();
 
+          // Create chart
           new Chart(ctx, {
             type: 'pie',
             data: {
               labels,
               datasets: [{
                 data: values,
-                backgroundColor: ['#1e88e5','#fdd835','#43a047','#8e24aa']
+                backgroundColor: ['#1e88e5', '#fdd835', '#43a047', '#8e24aa']
               }]
             },
             options: {

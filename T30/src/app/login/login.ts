@@ -25,8 +25,7 @@ export class Login {
       password: this.password
     }).subscribe({
       next: (res) => {
-        const token = res.data.token;
-        localStorage.setItem('jwt', token);
+        localStorage.setItem('token', res.token);
         localStorage.setItem('username', this.username);
         this.router.navigate(['/dashboard']);
       },
