@@ -1,9 +1,9 @@
-<div  *ngIf="isLoggedIn" class="summary-page">
-  <h1>Clean Energy Distribution Overview</h1>
+<div  *ngIf="isLoggedIn" class="summary-page" aria-label="CleanPlay Summary Page">
+  <h1 aria-label="Clean Energy Distribution Overview Header">Clean Energy Distribution Overview</h1>
   <p>
     This chart highlights how CleanPlay’s renewable energy program is powered by
     different clean sources, including wind, solar, hydro, and geothermal. It reflects
     the proportional energy mix used to offset gaming console power consumption.
   </p>
-  <canvas id="summaryChart"></canvas>
+  <canvas id="summaryChart" aria-label="CleanPlay Energy Distribution Chart" role="img"></canvas>
 </div>

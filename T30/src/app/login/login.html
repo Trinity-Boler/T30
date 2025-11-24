@@ -1,6 +1,9 @@
-<div class="login-container">
-  <input type="text" [(ngModel)]="username" placeholder="Username">
-  <input type="password" [(ngModel)]="password" placeholder="Password">
-  <button (click)="login()">Login</button>
-
+<div class ="login-page" aria-label="CleanPlay Login Page">
+  <div class="login-container" aria-labelledby="CleanPlay Login Form">
+     <label for="username">Username</label>
+    <input type="text" [(ngModel)]="username" placeholder="Username" aria-required="true" required>
+     <label for="password">Password</label>
+    <input type="password" [(ngModel)]="password" placeholder="Password" aria-required="true" required>
+    <button aria-label="Login button" (click)="login()">Login</button>
+  </div>
 </div>

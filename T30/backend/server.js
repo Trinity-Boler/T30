@@ -2,28 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-
-
+const bcrypt = require('bcrypt');
 
 const PORT = 3000;
 const app = express();
 const SECRET_KEY = process.env.SECRET_KEY || 'mySuper';
+const SALT_ROUNDS = 10;
 
-const bcrypt = require('bcrypt');
-const users = [
-  {
-    username: 'trin',
-    password: bcrypt.hashSync('trin', 10) // hashed password
-  }
-];
 // ---------------------------------------------
 // Middleware
 // ---------------------------------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-// CORS + preflight for Authorization header
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
@@ -35,7 +26,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
     res.status(401).json({
@@ -45,7 +35,8 @@ app.use(function (err, req, res, next) {
     });
   }
 });
-// Serve static files if needed
+
+// Serve static files
 app.use('/', express.static('public'));
 
 // ---------------------------------------------
@@ -103,14 +94,32 @@ const Report = mongoose.model('reports', reportSchema);
 // Routes
 // ---------------------------------------------
 
-// Login route
+// Register route (hashes password before saving)
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const newUser = new Users({ username, password: hashedPassword });
+    await newUser.save();
+    res.status(201).json({ success: true, message: "User created" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, err: "Server error during registration" });
+  }
+});
+
+// Login route (verifies hashed password)
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
-
   try {
     const user = await Users.findOne({ username });
 
-    if (!user || user.password !== password) {
+    if (!user) {
+      return res.status(401).json({ success: false, token: null, err: 'Invalid username or password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(401).json({ success: false, token: null, err: 'Invalid username or password' });
     }
 

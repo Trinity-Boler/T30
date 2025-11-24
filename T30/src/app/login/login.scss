@@ -1,18 +1,45 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+
+  /* Move the form higher by aligning items closer to the top */
+  align-items: flex-start;
+  padding-top: 80px; /* controls how high the form sits */
+
+  background-image: url('/playSB.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+}
 
 .login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #ffffff;
+  position: relative;
+  z-index: 2;
+
+  max-width: 500px;       /* make it wider */
+  width: 90%;             /* responsive */
+  padding: 40px 30px;     /* increase padding */
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
   text-align: center;
 
   input {
     display: block;
     width: 90%;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 15px auto;  /* bigger spacing */
+    padding: 12px;      /* taller inputs */
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 1rem;
@@ -20,18 +47,18 @@
 
   button {
     width: 95%;
-    padding: 10px;
-    margin-top: 15px;
+    padding: 12px;       /* bigger button */
+    margin-top: 20px;
     border: none;
     border-radius: 6px;
     background-color: #1f2937;
     color: #fff;
-    font-size: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
     &:hover {
-          background-color: #374151; // slightly lighter hover
+      background-color: #374151;
     }
   }
 }

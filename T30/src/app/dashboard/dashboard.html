@@ -1,37 +1,75 @@
-<div *ngIf="isLoggedIn" class="dashboard">
-  <h1>CleanPlay: Greener Gaming for a Sustainable Future</h1>
-  <a href="https://cleanplay.com/"target="_blank">CleanPlay</a>
+<div role="banner" class="dashboard-header" aria-label="Green Banner of controller, wind turbine, and solar panel"></div>
 
-  <p>
-    CleanPlay is a recent innovation launched in early 2025 that brings clean energy
-    awareness directly to the gaming community. The platform allows players to offset
-    the power their consoles use by subscribing to renewable energy sources such as wind
-    and solar. It integrates with gaming systems like the PlayStation 5, rewarding users
-    with exclusive in-game items, achievements, and digital collectibles for supporting
-    clean power. This approach transforms gaming from being purely energy-consuming to
-    being environmentally conscious and participatory. CleanPlay partners with energy
-    providers and developers to verify renewable offsets, turning every gaming session
-    into a contribution toward a cleaner energy grid. It represents a new intersection
-    between entertainment technology and environmental responsibility, using gamification
-    to inspire positive change within one of the largest digital industries.
-  </p>
+<div *ngIf="isLoggedIn" class="dashboard" aria-label="CleanPlay Dashboard Page">
 
-  <p><strong>Source:</strong>
-    <a href="https://sonyinteractive.com/en/news/blog/enabling-environmental-action-with-the-cleanplay-app-on-playstation-5/"
-       target="_blank">
-       Sony Interactive: Enabling Environmental Action with the CleanPlay App (March 2025)
-    </a>
-  </p>
+  <div class="dashboard-content-row">
 
-  <h2>Technical Overview</h2>
-  <p>
-    The T30 project is built as a Single Page Application (SPA) using <strong>Angular</strong>
-    for the frontend, <strong>Node.js</strong> and <strong>Express</strong> for the backend API,
-    and <strong>MongoDB</strong> for the database. The site is hosted on <strong>NGINX</strong>
-    for efficient static file serving and HTTPS configuration. The architecture follows
-    a modern MERN-like stack but leverages Angular for improved modularity and scalability.
-    Environment variables are managed with <code>dotenv</code>, and RESTful endpoints are used
-    to fetch and display data dynamically from MongoDB.
-  </p>
+    <!-- LEFT CARD -->
+    <div class="dashboard-section" aria-labelledby="CleanPlay: Greener Gaming for a Sustainable Future" >
+      <h1>CleanPlay: Greener Gaming for a Sustainable Future</h1>
+      <a href="https://cleanplay.com/" target="_blank">CleanPlay</a>
+
+      <p>
+        CleanPlay is an innovation launched in early 2025 that brings clean energy
+        awareness directly to the gaming community. The platform enables players to offset
+        the power their consoles use by subscribing to renewable energy sources such as
+        wind and solar.
+      </p>
+
+      <p>
+        It integrates with gaming systems like the PlayStation 5, rewarding players with
+        exclusive in-game items, achievements, and digital collectibles for supporting
+        clean power. This turns gaming from being purely energy-consuming into a more
+        environmentally conscious and participatory experience.
+      </p>
+
+      <p>
+        CleanPlay partners with energy providers and developers to verify renewable
+        offsets, ensuring that every gaming session contributes to a cleaner and more
+        sustainable energy grid. It represents a new intersection between entertainment
+        technology and environmental responsibility, using gamification to encourage
+        positive change within one of the largest digital industries.
+      </p>
+
+      <p><strong>Source:</strong>
+        <a
+          href="https://sonyinteractive.com/en/news/blog/enabling-environmental-action-with-the-cleanplay-app-on-playstation-5/"
+          target="_blank">
+          Sony Interactive: Enabling Environmental Action with the CleanPlay App (March 2025)
+        </a>
+      </p>
+    </div>
+
+    <!-- RIGHT CARD -->
+    <div class="dashboard-section" aria-labelledby="CleanPlay: Technical Overview">
+      <h2>Technical Overview</h2>
+
+      <p>
+        The T30 project is built as a Single Page Application (SPA) using
+        <strong>Angular</strong> for the frontend, <strong>Node.js</strong> and
+        <strong>Express</strong> for the backend API, and <strong>MongoDB</strong> for the
+        database. The site is hosted on <strong>NGINX</strong> for efficient static file
+        serving and HTTPS configuration.
+      </p>
+
+      <p>
+        The architecture follows a modern MERN-like stack but uses Angular for improved
+        modularity and scalability. Environment variables are handled with
+        <code>dotenv</code>, and RESTful endpoints fetch and display data dynamically
+        from MongoDB.
+      </p>
+
+      <p>
+        The charts are created with <strong>Chart.js</strong>, providing interactive visualizations.
+        Chart.js is utilized for rendering interactive charts on the Summary and Report
+        pages, providing visual insights into CleanPlay adoption and energy distribution.
+        User authentication is managed with <strong>JWT</strong> tokens stored in local storage for
+        session persistence.
+      </p>
+      <p>
+        * All images are generated by <strong>OpenAI</strong>
+      </p>
+    </div>
+
+  </div>
 </div>
-
