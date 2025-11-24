@@ -1,0 +1,20 @@
+<div class="register-page">
+  <div class="register-container" aria-labelledby="CleanPlay Registration Form">
+    <h1>Create Account</h1>
+
+    <label for="username">Username</label>
+    <input type="text" placeholder="Username" [(ngModel)]="username">
+     <label for="password">Password</label>
+    <input type="password" placeholder="Password" [(ngModel)]="password">
+  <label for="confirmPassword">Confirm Password</label>
+    <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword">
+
+    <button aria-label="Register button" (click)="register()">Register</button>
+
+    <!-- <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p> -->
+
+
+    <p aria-label="Login link" class="login-link">Already have an account? <a routerLink="/login" routerLinkActive="active"><strong>Login here</strong></a></p>
+  </div>
+</div>

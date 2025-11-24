@@ -25,7 +25,7 @@ export class Login {
       password: this.password
     }).subscribe({
       next: (res) => {
-        // FIX: Only save token if login was successful
+
         if (res && res.success && res.token) {
           localStorage.setItem('token', res.token);
           localStorage.setItem('username', this.username);
@@ -40,4 +40,8 @@ export class Login {
       }
     });
   }
+  registerAccount() {
+  this.router.navigate(['/register']);
+}
+
 }

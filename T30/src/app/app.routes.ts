@@ -3,6 +3,7 @@ import { Dashboard } from './dashboard/dashboard';
 import { Login } from './login/login';
 import { Summary } from './summary/summary';
 import { Report } from './report/report';
+import { Register } from './register/register';
 
 export const routes: Routes = [
 
@@ -28,6 +29,13 @@ export const routes: Routes = [
    {
     path: 'report',
     component:Report
+  },
+
+
+
+   {
+    path: 'register',
+    component:Register
   },
 
 ];
