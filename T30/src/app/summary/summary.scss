@@ -1,4 +1,55 @@
-canvas {
-  width: 50% !important;
-  height: 400px !important;
+.summary-page {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 35px 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  animation: fadeIn 0.5s ease;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1b5e20;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  canvas {
+    width: 100% !important;
+    max-width: 700px;
+    height: 400px !important;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Optional matching global background */
+body {
+  background-color: #e8f5e9;
+  background-image: radial-gradient(#c8e6c9 1px, transparent 1px);
+  background-size: 18px 18px;
+  font-family: "Inter", sans-serif;
 }

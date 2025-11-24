@@ -1,12 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+
+
 
 const PORT = 3000;
 const app = express();
-const SECRET_KEY = 'yourSecretKey'; // change to something secure
+const SECRET_KEY = process.env.SECRET_KEY || 'mySuper';
 
+const bcrypt = require('bcrypt');
+const users = [
+  {
+    username: 'trin',
+    password: bcrypt.hashSync('trin', 10) // hashed password
+  }
+];
 // ---------------------------------------------
 // Middleware
 // ---------------------------------------------
