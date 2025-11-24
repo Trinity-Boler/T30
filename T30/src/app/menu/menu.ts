@@ -1,40 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
-  imports: [
-    RouterLink, RouterLinkActive
-  ],
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './menu.html',
-  styleUrl: './menu.scss',
+  styleUrls: ['./menu.scss']
 })
 export class Menu {
 
+  isLoggedIn = false;
+
   constructor(private router: Router) {}
 
-isLoggedIn = false;
-
   ngOnInit(): void {
-    // Check token on page load
-    this.isLoggedIn = !!localStorage.getItem('token');
-  }
-   ngDoCheck(): void {
-    // Keep menu updated even after login without reloading page
     this.isLoggedIn = !!localStorage.getItem('token');
   }
 
-  logout() {
-    // Remove token (or any session data)
-    localStorage.removeItem('token'); // or sessionStorage.removeItem('token');
+  ngDoCheck(): void {
+    this.isLoggedIn = !!localStorage.getItem('token');
+  }
 
-    // Optionally clear all storage:
-    localStorage.clear();
-
-    // Redirect to login page
+  logout(): void {
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 }
-

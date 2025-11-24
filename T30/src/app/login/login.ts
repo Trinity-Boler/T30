@@ -25,9 +25,14 @@ export class Login {
       password: this.password
     }).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('username', this.username);
-        this.router.navigate(['/dashboard']);
+        // FIX: Only save token if login was successful
+        if (res && res.success && res.token) {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('username', this.username);
+          this.router.navigate(['/dashboard']);
+        } else {
+          alert('Invalid login response.');
+        }
       },
       error: (err) => {
         console.error('Login failed:', err);
@@ -36,5 +41,3 @@ export class Login {
     });
   }
 }
-
-

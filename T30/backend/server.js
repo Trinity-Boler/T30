@@ -16,15 +16,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS + preflight for Authorization header
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200"); // Angular dev server
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
-
   next();
 });
+
+
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
     res.status(401).json({
@@ -126,7 +128,7 @@ app.get('/api/summary', verifyToken, async (req, res) => {
 // Report
 app.get('/api/report', verifyToken, async (req, res) => {
   try {
-    const data = await Summary.find();
+    const data = await Report.find();
     res.json(data.map(d => ({ label: d.label, value: d.value })));
   } catch (err) {
     console.error(err);

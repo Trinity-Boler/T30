@@ -2,13 +2,14 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
+import { CommonModule } from '@angular/common';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, CommonModule],
   templateUrl: './summary.html',
   styleUrls: ['./summary.scss']
 })
@@ -35,14 +36,13 @@ export class Summary implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.viewReady = true;
 
-    // If logged in, load chart AFTER view initializes
     if (this.isLoggedIn) {
       this.loadSummaryChart();
     }
   }
 
   loadSummaryChart() {
-    if (!this.viewReady) return; 
+    if (!this.viewReady) return;
 
     const token = localStorage.getItem('token');
     if (!token) return;

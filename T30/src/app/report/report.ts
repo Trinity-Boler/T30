@@ -1,17 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { CommonModule } from '@angular/common';
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.html',
-  styleUrls: ['./report.scss']
+  styleUrls: ['./report.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
-export class Report implements OnInit {
-  ngOnInit(): void {
-    const ctx = document.getElementById('reportChart') as HTMLCanvasElement;
+export class Report implements OnInit, AfterViewInit {
+  isLoggedIn = false;
 
-    new Chart(ctx, {
+  ngOnInit(): void {
+    this.isLoggedIn = !!localStorage.getItem('token');
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.isLoggedIn) return;
+
+    const canvas = document.getElementById('reportChart') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    new Chart(canvas, {
       type: 'bar',
       data: {
         labels: ['PlayStation', 'Xbox', 'PC', 'Switch'],
